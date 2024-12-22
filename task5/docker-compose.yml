@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./back-end
+    # Expose port internally without mapping to the host
+    expose:
+      - "5252"
+
+  frontend:
+    build: ./front-end
+    # Expose port internally without mapping to the host
+    expose:
+      - "9000"
+
+  proxy:
+    build: ./proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - frontend
+      - backend
